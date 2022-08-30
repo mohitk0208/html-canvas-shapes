@@ -10,6 +10,18 @@
     <canvas id="canvas1"></canvas>
     <div class="controls">
       <button id="randomize-btn">Randomize</button>
+      <div class="sliders">
+        <input
+          type="range"
+          id="spread"
+          name="spread"
+          min="0.1"
+          max="3"
+          step="0.1"
+          value="1"
+        />
+        <label for="spread">Spread</label>
+      </div>
     </div>
 
     <script type="module" src="/src/main.ts"></script>

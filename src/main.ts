@@ -3,6 +3,8 @@ window.addEventListener("load", function () {
 
   const canvas = document.getElementById("canvas1") as HTMLCanvasElement;
   const randomizeBtn = this.document.getElementById("randomize-btn") as HTMLButtonElement
+  const slider_spread = this.document.getElementById("spread") as HTMLInputElement
+  const label_spread = this.document.querySelector('[for="spread"]') as HTMLLabelElement
 
 
   canvas.width = this.window.innerWidth
@@ -80,6 +82,7 @@ window.addEventListener("load", function () {
   }
 
   drawFractal()
+  updateSliders()
 
 
   function randomizeFractal() {
@@ -91,8 +94,21 @@ window.addEventListener("load", function () {
   }
 
 
+  function updateSliders() {
+    slider_spread.value = String(spread)
+    label_spread.innerText = `Spread: ${spread.toFixed(2)}`
+  }
+
+
   randomizeBtn.addEventListener("click", () => {
     randomizeFractal()
+    updateSliders()
+    drawFractal()
+  })
+
+  slider_spread?.addEventListener("change", (e) => {
+    spread = Number((e?.target as HTMLInputElement).value)
+    updateSliders()
     drawFractal()
   })
 
