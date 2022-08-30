@@ -23,13 +23,14 @@ body {
   border: 1px solid rgba(54, 54, 54, 0.966);
 }
 
-#randomize-btn {
+button {
   font-size: 1rem;
   padding: 10px;
   border: none;
   outline: none;
-  border-radius: 5px;
+  border-radius: 2px;
   cursor: pointer;
+  width: 100%;
 }
 
 input,

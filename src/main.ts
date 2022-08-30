@@ -3,9 +3,11 @@ window.addEventListener("load", function () {
 
   const canvas = document.getElementById("canvas1") as HTMLCanvasElement;
   const randomizeBtn = this.document.getElementById("randomize-btn") as HTMLButtonElement
+  const resetBtn = this.document.getElementById("reset") as HTMLButtonElement
   const slider_spread = this.document.getElementById("spread") as HTMLInputElement
   const label_spread = this.document.querySelector('[for="spread"]') as HTMLLabelElement
-
+  const slider_sides = this.document.getElementById("sides") as HTMLInputElement
+  const label_sides = this.document.querySelector('[for="sides"]') as HTMLLabelElement
 
   canvas.width = this.window.innerWidth
   canvas.height = this.window.innerHeight
@@ -26,7 +28,7 @@ window.addEventListener("load", function () {
   const branches = 3
 
   let size = Math.min(canvas.width * 0.3, canvas.height * 0.3)
-  let sides = 6
+  let sides = 5
   let scale = 0.4
   let spread = 0.6
   let color = `hsl(${Math.random() * 360}, 100%, 50%)`
@@ -93,10 +95,22 @@ window.addEventListener("load", function () {
     lineWidth = Math.random() * 20 + 10
   }
 
+  function resetFractal() {
+    sides = 5
+    scale = 0.5
+    spread = 0.5
+    color = `hsl(0, 100%, 50%)`
+    lineWidth = 10
+  }
+
 
   function updateSliders() {
+    randomizeBtn.style.backgroundColor = color
+    resetBtn.style.backgroundColor = color
     slider_spread.value = String(spread)
     label_spread.innerText = `Spread: ${spread.toFixed(2)}`
+    slider_sides.value = String(sides)
+    label_sides.innerText = `Sides: ${sides}`
   }
 
 
@@ -106,8 +120,20 @@ window.addEventListener("load", function () {
     drawFractal()
   })
 
+  resetBtn.addEventListener("click", () => {
+    resetFractal()
+    updateSliders()
+    drawFractal()
+  })
+
   slider_spread?.addEventListener("change", (e) => {
     spread = Number((e?.target as HTMLInputElement).value)
+    updateSliders()
+    drawFractal()
+  })
+
+  slider_sides.addEventListener("change", (e) => {
+    sides = Number((e.target as HTMLInputElement).value)
     updateSliders()
     drawFractal()
   })
