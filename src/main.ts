@@ -53,17 +53,11 @@ window.addEventListener("load", function () {
       ctx.rotate(spread)
       drawBranch(level + 1)
       ctx.restore()
-
-      ctx.save()
-      ctx.rotate(-1 * spread)
-      drawBranch(level + 1)
-      ctx.restore()
-
       ctx.restore()
     }
-
-
-
+    ctx.beginPath()
+    ctx.arc(0, size, size * 0.1, 0, Math.PI * 2)
+    ctx.fill()
 
   }
 
@@ -71,14 +65,16 @@ window.addEventListener("load", function () {
     ctx.clearRect(0, 0, canvas.width, canvas.height)
     ctx.save()
     ctx.strokeStyle = color
+    ctx.fillStyle = color
     ctx.lineWidth = lineWidth
-    ctx.fillRect(0, 0, canvas.width, canvas.height)
     ctx.translate(canvas.width / 2, canvas.height / 2)
 
     for (let i = 0; i < sides; i++) {
       ctx.rotate((Math.PI * 2) / sides)
       drawBranch(0)
     }
+
+
 
     ctx.restore()
   }
@@ -135,6 +131,14 @@ window.addEventListener("load", function () {
   slider_sides.addEventListener("change", (e) => {
     sides = Number((e.target as HTMLInputElement).value)
     updateSliders()
+    drawFractal()
+  })
+
+
+  this.window.addEventListener("resize", () => {
+    canvas.width = this.window.innerWidth
+    canvas.height = this.window.innerHeight
+    size = Math.min(canvas.width * 0.3, canvas.height * 0.3)
     drawFractal()
   })
 
