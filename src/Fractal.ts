@@ -102,7 +102,7 @@ export class Fractal implements FractalConstructorProps {
     this.sides = 5
     this.scale = 0.5
     this.spread = 0.5
-    this.color = `hsl(0, 100%, 50%)`
+    this.color = `hsl(260, 100%, 50%)`
     this.lineWidth = 10
   }
 
