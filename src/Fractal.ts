@@ -11,8 +11,7 @@ interface FractalConstructorProps {
   branches: number
 }
 
-
-class Fractal implements FractalConstructorProps {
+export class Fractal implements FractalConstructorProps {
   canvas: HTMLCanvasElement
   ctx: CanvasRenderingContext2D
   color: string
@@ -60,13 +59,13 @@ class Fractal implements FractalConstructorProps {
 
     for (let i = 0; i < this.sides; i++) {
       this.ctx.rotate((Math.PI * 2) / this.sides)
-      this.#drawBranch(0)
+      this.drawBranch(0)
     }
 
     this.ctx.restore()
   }
 
-  #drawBranch(level: number) {
+  protected drawBranch(level: number) {
     if (level > this.maxLevel) return
 
     this.ctx.beginPath()
@@ -81,7 +80,7 @@ class Fractal implements FractalConstructorProps {
 
       this.ctx.save()
       this.ctx.rotate(this.spread)
-      this.#drawBranch(level + 1)
+      this.drawBranch(level + 1)
       this.ctx.restore()
       this.ctx.restore()
     }
@@ -109,4 +108,36 @@ class Fractal implements FractalConstructorProps {
 
 }
 
-export default Fractal
+
+export class SymmetricalBranchFractal extends Fractal {
+
+  protected drawBranch(level: number): void {
+    if (level > this.maxLevel) return
+
+    this.ctx.beginPath()
+    this.ctx.moveTo(0, 0)
+    this.ctx.lineTo(this.size, 0)
+    this.ctx.stroke()
+
+    for (let i = 0; i < this.branches; i++) {
+      this.ctx.save()
+      this.ctx.translate(this.size - (this.size / this.branches) * i, 0)
+      this.ctx.scale(this.scale, this.scale)
+
+      this.ctx.save()
+      this.ctx.rotate(this.spread)
+      this.drawBranch(level + 1)
+      this.ctx.restore()
+
+      this.ctx.save()
+      this.ctx.rotate(-1 * this.spread)
+      this.drawBranch(level + 1)
+      this.ctx.restore()
+
+
+      this.ctx.restore()
+    }
+  }
+
+}
+

@@ -1,4 +1,4 @@
-import Fractal from './Fractal';
+import { SymmetricalBranchFractal } from './Fractal';
 import './style.css'
 
 
@@ -27,7 +27,7 @@ window.addEventListener("load", function () {
   ctx.shadowBlur = 10
 
 
-  const fractal = new Fractal(canvas, ctx)
+  const fractal = new SymmetricalBranchFractal(canvas, ctx)
 
   fractal.draw()
   updateSliders()
